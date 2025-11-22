@@ -1,0 +1,9 @@
+Generic single-database configuration.
+
+
+alembic upgrade head
+alembic downgrade -1
+
+
+alembic history
+alembic current
