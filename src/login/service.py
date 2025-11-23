@@ -1,14 +1,14 @@
+from .repository import Repository
+import bcrypt
+
 class Service:
-    def validate(self, form: dict) -> str: ...
-
-def create_service() -> Service:
-    class Impl(Service):
-        pass
-
+    @staticmethod
     def validate(form):
+        encoded_pass = form["password"].encode()
         print(form)
-        return "inválido"
-
-    obj = Impl()
-    obj.validate = validate 
-    return obj
+        user = Repository.find_user_by_login(login=form["login"])
+        print(user)
+        if bcrypt.checkpw(encoded_pass, user[1].encode()):
+            print('certo')
+            return None
+        return "Login ou senha inválidos."

@@ -1,5 +1,6 @@
 Generic single-database configuration.
 
+alembic revision -m "create empresa"    
 
 alembic upgrade head
 alembic downgrade -1

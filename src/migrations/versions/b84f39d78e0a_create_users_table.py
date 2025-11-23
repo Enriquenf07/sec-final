@@ -18,13 +18,22 @@ branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade():
-    op.execute("""
-        CREATE TABLE users (
-            id SERIAL PRIMARY KEY,
-            login VARCHAR(50) NOT NULL,
-            password TEXT NOT NULL
-        );
-    """)
+
+    op.create_table(
+        'company',
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('name', sa.String(255), nullable=False),
+    )
+
+    op.create_table(
+        'users',
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('login', sa.String(50), nullable=False),
+        sa.Column('email', sa.String(50), nullable=False),
+        sa.Column('password', sa.Text, nullable=False),
+        sa.Column('company', sa.Integer, sa.ForeignKey('company.id'), nullable=False),
+    )
 
 def downgrade():
-    op.execute("DROP TABLE users;")
+    op.drop_table('users')
+    op.drop_table('company')
