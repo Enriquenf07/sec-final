@@ -21,9 +21,11 @@
             <path d="M4 19h16" />
         </svg></button>
         <nav class="mt-4">
-            <a href="{{ url_for('home.home') }}" class="block p-2 hover:bg-gray-700">Usuários</a>
-            <a href="{{ url_for('home.home') }}" class="block p-2 hover:bg-gray-700">Configurações</a>
-            <a href="{{ url_for('login.logout') }}" class="block p-2 hover:bg-gray-700">Logout</a>
+            {% for menu_item in menu %}
+                <a href="{{ url_for(menu_item.href) }}" class="block p-2 hover:bg-gray-700">
+                    {{ menu_item.name }}
+                </a>
+            {% endfor %}
         </nav>
     </div>
     {% block children %}{% endblock %}

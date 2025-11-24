@@ -8,10 +8,11 @@ class Service:
     @staticmethod
     def validate(form):
         encoded_pass = form["password"].encode()
-        print(form)
         user = Repository.find_user_by_login(login=form["login"])
-        print(user)
-        
+        ativo = user[3]
+        print(ativo)
+        if(not ativo):
+            return "Login ou senha inválidos."
         if bcrypt.checkpw(encoded_pass, user[2].encode()):
             userDTO = UserWrapper(user)
             print(userDTO)

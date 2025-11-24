@@ -23,13 +23,16 @@ def upgrade():
         'company',
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(255), nullable=False),
+        sa.Column('token_inicial', sa.String(255), nullable=True),
+        sa.Column('ativo', sa.Boolean, nullable=False, server_default=sa.text('true')),
     )
 
     op.create_table(
         'users',
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('login', sa.String(50), nullable=False),
-        sa.Column('email', sa.String(50), nullable=False),
+        sa.Column('login', sa.String(50), nullable=False, unique=True),
+        sa.Column('email', sa.String(255), nullable=False),
+        sa.Column('name', sa.String(255), nullable=False),
         sa.Column('password', sa.Text, nullable=False),
         sa.Column('company', sa.Integer, sa.ForeignKey('company.id'), nullable=False),
     )

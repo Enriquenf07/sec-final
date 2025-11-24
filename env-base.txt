@@ -1,0 +1,5 @@
+SECRET_KEY=uma_senha_bem_grande_e_aleatoria
+
+DATABASE_URL=postgresql://usuario:senha@localhost:5432/nome_do_banco
+EMAIL=email
+EMAIL_PASSWORD=senha
