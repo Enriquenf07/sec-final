@@ -1,0 +1,10 @@
+{% extends "components/base-app.html" %}
+{% block children %}
+<div>
+    {% if username %}
+        <p>Bém-vindo <span>
+            {{ username }}
+        </span></p>
+    {% endif %} 
+</div>
+{% endblock %}

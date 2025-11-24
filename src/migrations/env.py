@@ -4,6 +4,10 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -71,6 +75,8 @@ def run_migrations_online() -> None:
         with context.begin_transaction():
             context.run_migrations()
 
+database_url = os.getenv("DATABASE_URL_PSYCOPG")
+config.set_main_option("sqlalchemy.url", database_url)
 
 if context.is_offline_mode():
     run_migrations_offline()
