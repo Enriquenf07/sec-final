@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Response, url_for
 from login import login_bp
 from home import home_bp
 from cadastro import cadastro_bp
@@ -40,6 +40,37 @@ def create_app():
 
 
 app = create_app()
+
+
+@app.route('/sitemap.xml', methods=['GET'])
+def sitemap():
+    pages = []
+
+    for rule in app.url_map.iter_rules():
+        # ignora rotas internas e estáticas
+        if "GET" not in rule.methods:
+            continue
+        if rule.endpoint.startswith("static"):
+            continue
+        
+        # ignora rotas com parâmetros obrigatórios
+        if rule.arguments:
+            continue
+
+        url = url_for(rule.endpoint, _external=True)
+        pages.append(url)
+
+    xml = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    ]
+
+    for page in pages:
+        xml.append(f"  <url><loc>{page}</loc></url>")
+
+    xml.append('</urlset>')
+
+    return Response("\n".join(xml), mimetype='application/xml')
 
 if __name__ == "__main__":
     app.run(debug=True)
