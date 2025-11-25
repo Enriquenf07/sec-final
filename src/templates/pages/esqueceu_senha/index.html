@@ -1,0 +1,13 @@
+{% extends "components/base.html" %}
+{% block content %}
+<div class="bg-zinc-100 min-h-screen w-screen flex items-center justify-center">
+    <form class="flex flex-col gap-3 shadow-2xl p-16 rounded-md" method="post">
+        <p class="text-sm">Uma nova senha será enviada ao seu email</p>
+        <input type="text" placeholder="Login" name="login"
+            class="p-3 border rounded-md focus:outline-none focus:ring focus:ring-blue-300" required />
+        <button type="submit" class="p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+            Continuar
+        </button>
+    </form>
+</div>
+{% endblock %}

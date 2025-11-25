@@ -8,7 +8,6 @@ from config import Service as Config_service
 @login_required
 def home():
     default_ctx = Config_service.get_default_ctx()
-    print(default_ctx)
     ctx = {
         "username": current_user.login,
         **default_ctx

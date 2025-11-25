@@ -1,12 +1,12 @@
 alembic==1.14.1
-backports.zoneinfo==0.2.1
+# backports.zoneinfo removido pois Python >= 3.9 já tem zoneinfo
 bcrypt==5.0.0
 blinker==1.8.2
 cachetools==6.2.2
 certifi==2025.11.12
 charset-normalizer==3.4.4
 click==8.1.8
-cssselect==1.3.0
+cssselect>=1.0,<2.0
 cssutils==2.11.1
 dotenv==0.9.9
 Flask==3.0.3
@@ -18,7 +18,7 @@ importlib_resources==6.4.5
 itsdangerous==2.2.0
 Jinja2==3.1.6
 loguru==0.7.3
-lxml==6.0.2
+lxml>=6.0
 Mako==1.3.10
 MarkupSafe==2.1.5
 more-itertools==10.8.0

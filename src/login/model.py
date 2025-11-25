@@ -5,5 +5,7 @@ class UserWrapper(UserMixin):
         self.user = user_row
         self.id = user_row[0]            
         self.login = user_row[1]
+        self.name = user_row[5]
+        self.company = user_row[6]
     def get_id(self):
         return str(self.id)

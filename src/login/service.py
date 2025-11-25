@@ -19,9 +19,11 @@ class Service:
             login_user(userDTO)
             return None
         return "Login ou senha inválidos."
+    
     @staticmethod
     def get_roles(id):
         return Repository.get_roles_by_id(id)
+    
 
     
     

@@ -2,6 +2,7 @@ from flask import Flask, render_template, Response, url_for
 from login import login_bp
 from home import home_bp
 from cadastro import cadastro_bp
+from userconfig import config_bp
 from flask_login import LoginManager
 from login import Repository as User_repository
 from login import UserWrapper
@@ -19,6 +20,7 @@ def create_app():
     app.register_blueprint(login_bp)
     app.register_blueprint(home_bp)
     app.register_blueprint(cadastro_bp)
+    app.register_blueprint(config_bp)
     app.secret_key = key
     login_manager = LoginManager()
     login_manager.init_app(app)

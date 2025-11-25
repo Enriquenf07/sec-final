@@ -5,13 +5,13 @@ class Repository:
     @staticmethod
     @with_cursor
     def find_user_by_login(cur, login):
-        cur.execute("SELECT u.id, login, password, c.ativo as c_ativo FROM users u LEFT JOIN company c ON c.id = u.company WHERE u.login = %s", (login, ))
+        cur.execute("SELECT u.id, login, password, c.ativo as c_ativo, email, u.name, c.id FROM users u LEFT JOIN company c ON c.id = u.company WHERE u.login = %s", (login, ))
         return cur.fetchone()
     
     @staticmethod
     @with_cursor
     def find_user_by_id(cur, id):
-        cur.execute("SELECT u.id, login, password, c.ativo as c_ativo FROM users u LEFT JOIN company c ON c.id = u.company WHERE u.id = %s", (id, ))
+        cur.execute("SELECT u.id, login, password, c.ativo as c_ativo, email, u.name, c.id FROM users u LEFT JOIN company c ON c.id = u.company WHERE u.id = %s", (id, ))
         return cur.fetchone()
     @staticmethod
     @with_cursor
@@ -56,6 +56,15 @@ class Repository:
         row = cur.fetchone()
         return row[0] if row else None
     
+
+    @staticmethod
+    @with_cursor
+    def find_all_by_empresa(cur, com_id):
+        cur.execute("SELECT u.id, login, name, email, r.role FROM users u LEFT JOIN user_role r ON r.user = u.id WHERE u.company = %s", (com_id, ))
+        columns = [desc[0] for desc in cur.description] 
+        rows = cur.fetchall()
+        return [dict(zip(columns, row)) for row in rows]
+    
     
     @staticmethod
     @with_cursor
@@ -70,6 +79,27 @@ class Repository:
             (True, id)
         )
 
-
+    @staticmethod
+    @with_cursor
+    def desativar_empresa(cur, id):
+        cur.execute(
+            """
+            UPDATE company
+            SET ativo = %s
+            WHERE id = %s
+            """,
+            (False, id)
+        )
     
+    @staticmethod
+    @with_cursor
+    def nova_senha(cur, nova_senha, id):
+        cur.execute(
+            """
+            UPDATE users
+            SET password = %s
+            WHERE id = %s
+            """,
+            (nova_senha, id)
+        )
             
